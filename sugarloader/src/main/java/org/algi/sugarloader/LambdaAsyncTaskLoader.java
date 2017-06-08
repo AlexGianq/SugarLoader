@@ -1,21 +1,20 @@
-package org.sugarloader;
+package org.algi.sugarloader;
 
+import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.support.v4.content.AsyncTaskLoader;
 
-import org.sugarloader.function.Supplier;
+import org.algi.sugarloader.function.Supplier;
 
 /**
- * Support loader that will take a supplier and store result on config change, so request will be played only
+ * Loader that will take a supplier and store result on config change, so request will be played only
  * once.
  *
  * @author Alexandre Gianquinto
  */
-class SupportLambdaAsyncTaskLoader<T> extends AsyncTaskLoader<Result<T>> {
-
+class LambdaAsyncTaskLoader<T> extends AsyncTaskLoader<Result<T>> {
     private final Supplier<T> mBackgroundSupplier;
 
-    SupportLambdaAsyncTaskLoader(final Context context, final Supplier<T> backgroundSupplier) {
+    LambdaAsyncTaskLoader(final Context context, final Supplier<T> backgroundSupplier) {
         super(context);
         mBackgroundSupplier = backgroundSupplier;
     }

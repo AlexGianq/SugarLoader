@@ -1,4 +1,4 @@
-package org.sugarloader;
+package org.algi.sugarloader;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -12,11 +12,9 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 
-import org.sugarloader.function.Call;
-import org.sugarloader.function.Consumer;
-import org.sugarloader.function.Supplier;
-
-import static org.sugarloader.Nothing.doNothing;
+import org.algi.sugarloader.function.Call;
+import org.algi.sugarloader.function.Consumer;
+import org.algi.sugarloader.function.Supplier;
 
 /**
  * <p>LambdaLoader is a builder that provides a syntaxic sugar to play with google's loader API.</p>
@@ -99,10 +97,10 @@ public class SugarLoader<T> {
     }
 
     @NonNull
-    private Supplier<T> mBackgroundSupplier = doNothing();
+    private Supplier<T> mBackgroundSupplier = Nothing.doNothing();
 
     @NonNull
-    private Consumer<T> mSuccessConsumer = doNothing();
+    private Consumer<T> mSuccessConsumer = Nothing.doNothing();
 
     @NonNull
     private Consumer<Throwable> mErrorConsumer = new Consumer<Throwable>() {
@@ -113,13 +111,13 @@ public class SugarLoader<T> {
     };
 
     @NonNull
-    private Call mBefore = doNothing();
+    private Call mBefore = Nothing.doNothing();
 
     @NonNull
-    private Call mBeforeDeliver = doNothing();
+    private Call mBeforeDeliver = Nothing.doNothing();
 
     @NonNull
-    private Call mBeforeCreate = doNothing();
+    private Call mBeforeCreate = Nothing.doNothing();
 
     /**
      * Provide an operation to be executed on background thread.

@@ -1,4 +1,4 @@
-package org.sugarloader;
+package org.algi.sugarloader;
 
 /**
  * @author Alexandre Gianquinto

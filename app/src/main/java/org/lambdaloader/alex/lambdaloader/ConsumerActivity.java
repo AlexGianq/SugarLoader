@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.sugarloader.SugarLoader;
+import org.algi.sugarloader.SugarLoader;
 
 /**
  * @author Alexandre Gianquinto
