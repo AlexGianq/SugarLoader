@@ -1,5 +1,10 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'com.jfrog.bintray'
 
+def projectVersion = '0.1'
+project.version=projectVersion
+project.group='com.github.alexgianq'
 
 android {
     compileSdkVersion 25
@@ -10,7 +15,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 25
         versionCode 1
-        versionName "0.1"
+        versionName projectVersion
     }
     buildTypes {
         release {
@@ -21,5 +26,63 @@ android {
 }
 
 dependencies {
-    implementation 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:25.3.1'
+}
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
+
+                // Add your description here
+                name "com.github.alexgianq:sugarloader"
+                description = 'A lightweight API to add sugar to Android loader API'
+                url 'https://github.com/AlexGianq/SugarLoader'
+
+                version projectVersion
+		groupId 'com.github.alexgianq'
+		artifactId 'sugarloader'
+
+                // Set your license
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'alexgianq'
+                        name 'Alexandre Gianquinto'
+                        email 'alex.gianq@gmail.com'
+                    }
+                }
+                scm {
+                    connection 'https://github.com/AlexGianq/SugarLoader.git'
+                    developerConnection 'https://github.com/AlexGianq/SugarLoader.git'
+                    url 'https://github.com/AlexGianq/SugarLoader'
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = 'sugarloader'
+        userOrg = 'algi'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/AlexGianq/SugarLoader.git'
+        version {
+            name = "${projectVersion}"
+            released = new Date()
+            vcsTag= "VERSION_${projectVersion}"
+        }
+    }
 }
