@@ -83,6 +83,9 @@ bintray {
             name = "${projectVersion}"
             released = new Date()
             vcsTag= "VERSION_${projectVersion}"
+            gpg {
+                sign = true
+            }
         }
     }
 }
