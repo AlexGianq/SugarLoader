@@ -14,7 +14,14 @@ the only framework that is aware of fragment and activity lifecycles...
 
 ## How to use SugarLoader ?
 
-## Simplest case
+### Gradle config
+Add this line to your app's build.gradle :
+```
+     compile 'com.github.alexgianq:sugarloader:0.1'
+```
+
+
+### Simplest case
 SugarLoader was designed so that data loading should be written as a simple pipeline. Every builder parameter is optional.
 Here is the simplest call :
 ```java
