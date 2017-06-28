@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LambdaLoader</string>
+    <string name="title_1_loader_1_activity">1 activity\n1 loader</string>
+    <string name="title_2_loaders_1_activity">1 activity\n2 loaders</string>
+    <string name="title_2_fragments_1_loader_each">2 fragments\n1 loader each</string>
+    <string name="result_1_success">Result 1 : finished</string>
+    <string name="result_2_success">Result 2 : finished</string>
 </resources>

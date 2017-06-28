@@ -1,4 +1,4 @@
-package org.lambdaloader.alex.lambdaloader;
+package org.lambdaloader.alex.sugarloader;
 
 import android.app.Activity;
 import android.content.Context;
@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.sugarloader.demo.Application;
+import org.sugarloader.demo.OneLoaderActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -41,7 +43,7 @@ import static org.hamcrest.core.StringContains.containsString;
 public class SimpleInstrumentedTest {
 
     @Rule
-    public final ActivityTestRule<ConsumerActivity> activityRule = new ActivityTestRule<>(ConsumerActivity.class, true, false);
+    public final ActivityTestRule<OneLoaderActivity> activityRule = new ActivityTestRule<>(OneLoaderActivity.class, true, false);
 
     private Context mContext;
 
@@ -54,7 +56,7 @@ public class SimpleInstrumentedTest {
     @Test
     public void should_loader_terminate_when_success() throws Exception {
 
-        activityRule.launchActivity(ConsumerActivity.getIntent(mContext, true, 5000, "Bravo !"));
+        activityRule.launchActivity(OneLoaderActivity.intent(mContext, true, 5000, "Bravo !"));
 
         onView(withId(R.id.progress));
         onView(allOf(withId(R.id.progress), not(isDisplayed())));
@@ -67,7 +69,7 @@ public class SimpleInstrumentedTest {
     @Test
     public void should_loader_terminate_when_error() throws Exception {
 
-        activityRule.launchActivity(ConsumerActivity.getIntent(mContext, false, 5000, "C'est un échec !"));
+        activityRule.launchActivity(OneLoaderActivity.intent(mContext, false, 5000, "C'est un échec !"));
 
         onView(withId(R.id.progress));
         onView(allOf(withId(R.id.progress), not(isDisplayed())));
@@ -80,7 +82,7 @@ public class SimpleInstrumentedTest {
     @Test
     public void should_loader_load_once_however_rotations_may_happen() throws Exception {
 
-        activityRule.launchActivity(ConsumerActivity.getIntent(mContext, false, 5000, "C'est un échec !"));
+        activityRule.launchActivity(OneLoaderActivity.intent(mContext, false, 5000, "C'est un échec !"));
 
         onView(withId(R.id.progress)).perform(rotate());
 
@@ -94,7 +96,7 @@ public class SimpleInstrumentedTest {
     @Test
     public void should_loader_load_twice_when_press_text() throws Exception {
 
-        activityRule.launchActivity(ConsumerActivity.getIntent(mContext, false, 5000, "C'est un échec !"));
+        activityRule.launchActivity(OneLoaderActivity.intent(mContext, false, 5000, "C'est un échec !"));
 
         onView(withId(R.id.progress));
         onView(allOf(withId(R.id.progress), not(isDisplayed())));

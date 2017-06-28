@@ -1,4 +1,4 @@
-package org.lambdaloader.alex.lambdaloader;
+package org.sugarloader.demo;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

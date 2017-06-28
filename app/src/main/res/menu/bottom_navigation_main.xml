@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_1_activity_1_loader"
+        android:title="@string/title_1_loader_1_activity"/>
+    <item
+        android:id="@+id/nav_1_activity_2_loaders"
+        android:title="@string/title_2_loaders_1_activity"/>
+
+    <item android:id="@+id/nav_2_fragments_1_loader_each"
+          android:title="@string/title_2_fragments_1_loader_each"/>
+</menu>

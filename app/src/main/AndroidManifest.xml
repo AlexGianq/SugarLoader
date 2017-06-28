@@ -1,15 +1,18 @@
-<manifest package="org.lambdaloader.alex.lambdaloader"
+<manifest package="org.sugarloader.demo"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
+        android:name="org.sugarloader.demo.Application"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name="Application">
-        <activity android:name=".ConsumerActivity">
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".OneLoaderActivity"
+            android:label="@string/title_1_loader_1_activity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -17,5 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TwoLoadersActivity"
+            android:label="@string/title_2_loaders_1_activity"
+            android:launchMode="singleTop"/>
     </application>
 </manifest>

@@ -1,10 +1,9 @@
-package org.lambdaloader.alex.lambdaloader;
+package org.sugarloader.demo;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,7 +14,7 @@ import org.algi.sugarloader.SugarLoader;
  * @author Alexandre Gianquinto
  */
 
-public class ConsumerActivity extends AppCompatActivity {
+public class OneLoaderActivity extends BaseNavActivity {
 
 
     public static final String EXTRA_SUCCESS = "EXTRA_SUCCESS";
@@ -25,8 +24,13 @@ public class ConsumerActivity extends AppCompatActivity {
     private TextView mText;
     private SugarLoader<String> mLoader;
 
-    public static Intent getIntent(Context context, boolean willSucceed, long howMuchTime, String message) {
-        return new Intent(context, ConsumerActivity.class)
+    public static Intent intent(Context context) {
+        return new Intent(context, OneLoaderActivity.class);
+
+    }
+
+    public static Intent intent(Context context, boolean willSucceed, long howMuchTime, String message) {
+        return intent(context)
                 .putExtra(EXTRA_SUCCESS, willSucceed)
                 .putExtra(EXTRA_TIMEOUT, howMuchTime)
                 .putExtra(EXTRA_MESSAGE, message);
