@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".OneLoaderActivity"
-            android:label="@string/title_1_loader_1_activity"
+            android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -24,5 +24,6 @@
             android:name=".TwoLoadersActivity"
             android:label="@string/title_2_loaders_1_activity"
             android:launchMode="singleTop"/>
+        <activity android:name=".TwoFragmentsActivity" android:label="@string/title_2_fragments_2_loader_each"/>
     </application>
 </manifest>

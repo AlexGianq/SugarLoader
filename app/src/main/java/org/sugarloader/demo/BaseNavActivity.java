@@ -33,7 +33,10 @@ public class BaseNavActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_1_activity_2_loaders:
                 startActivity(TwoLoadersActivity.intent(this));
+                return true;
             case R.id.nav_2_fragments_1_loader_each:
+                startActivity(TwoFragmentsActivity.intent(this));
+                return true;
         }
         return false;
     }
