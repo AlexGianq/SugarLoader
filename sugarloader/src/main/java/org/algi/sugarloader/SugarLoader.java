@@ -20,7 +20,7 @@ import org.algi.sugarloader.function.Supplier;
  * <p>LambdaLoader is a builder that provides a syntaxic sugar to play with google's loader API.</p>
  * For example, the following code :
  * <pre>{code
- *      new LambdaLoader()
+ *      new LambdaLoader("Fetch data")
  *          .background(() -> myService.fetchData())
  *          .onSuccess(data -> mTextView.setText(data.label))
  *          .init(this) // "this" is activity, compat activity, fragment or compat fragment
@@ -84,14 +84,35 @@ public class SugarLoader<T> {
 
     private final int id;
 
+    /**
+     * @deprecated use named loader {@link SugarLoader(String)} or identified loader
+     * {@link SugarLoader(int)} instead. This constructor may work if it is unique amongst a
+     * fragment or activity lifecycle, but may trigger exceptions upon certain cases where
+     * there are multiple loaders sharing the same fragment/activity instance.
+     */
+    @Deprecated
     public SugarLoader() {
         id = DEFAULT_ID;
     }
 
+    /**
+     * Create a named loader.
+     *
+     * @param name the name of the loader (e.g. "Load pets"). It must be unique inside this fragment
+     *             instance, so Android may retrieve it upon configuration changes. Other fragments
+     *             or instances of the same fragment may share the same name without any problem, as
+     *             each loader lifecycle is bound to its fragment/activity's lifecycle.
+     */
     public SugarLoader(final String name) {
         this.id = name.hashCode();
     }
 
+    /**
+     * Create a identified loader.
+     *
+     * @param id the id of the loader. It must be unique inside a fragment instance lifecycle,
+     *           so Android may retrieve it upon configuration changes.
+     */
     public SugarLoader(final int id) {
         this.id = id;
     }
@@ -194,6 +215,16 @@ public class SugarLoader<T> {
         fragment.getLoaderManager().restartLoader(id, null, getSupportLoaderCallbacks(fragment.getContext()));
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    public void destroy(AppCompatActivity activity) {
+        activity.getSupportLoaderManager().destroyLoader(id);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    public void destroy(android.support.v4.app.Fragment fragment) {
+        fragment.getLoaderManager().destroyLoader(id);
+    }
+
     /* ******************************************
      * Regular loaders
      * ******************************************/
@@ -215,27 +246,7 @@ public class SugarLoader<T> {
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public void restart(final Activity activity) {
         mBefore.apply();
-        activity.getLoaderManager().restartLoader(id, null, new android.app.LoaderManager.LoaderCallbacks<Result<T>>() {
-            @Override
-            public android.content.Loader<Result<T>> onCreateLoader(final int i, final Bundle bundle) {
-                mBeforeCreate.apply();
-                return new LambdaAsyncTaskLoader<>(activity.getBaseContext(), mBackgroundSupplier);
-            }
-
-            @Override
-            public void onLoadFinished(final android.content.Loader<Result<T>> loader, final Result<T> tResult) {
-                mBeforeDeliver.apply();
-                if (tResult.success != null) {
-                    mSuccessConsumer.accept(tResult.success);
-                } else {
-                    mErrorConsumer.accept(tResult.error);
-                }
-            }
-
-            @Override
-            public void onLoaderReset(final android.content.Loader<Result<T>> loader) {
-            }
-        });
+        activity.getLoaderManager().restartLoader(id, null, getLoaderCallbacks(activity));
     }
 
 
@@ -243,6 +254,11 @@ public class SugarLoader<T> {
     public void restart(final Fragment fragment) {
         mBefore.apply();
         fragment.getLoaderManager().restartLoader(id, null, getLoaderCallbacks(fragment.getActivity()));
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
+    public void destroy(Activity activity) {
+        activity.getLoaderManager().destroyLoader(id);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
@@ -266,8 +282,8 @@ public class SugarLoader<T> {
             @Override
             public void onLoadFinished(final android.support.v4.content.Loader<Result<T>> loader, final Result<T> tResult) {
                 mBeforeDeliver.apply();
-                if (tResult.success != null) {
-                    mSuccessConsumer.accept(tResult.success);
+                if (tResult.isSuccess) {
+                    mSuccessConsumer.accept(tResult.result);
                 } else {
                     mErrorConsumer.accept(tResult.error);
                 }
@@ -291,8 +307,8 @@ public class SugarLoader<T> {
             @Override
             public void onLoadFinished(final Loader<Result<T>> loader, final Result<T> tResult) {
                 mBeforeDeliver.apply();
-                if (tResult.success != null) {
-                    mSuccessConsumer.accept(tResult.success);
+                if (tResult.isSuccess) {
+                    mSuccessConsumer.accept(tResult.result);
                 } else {
                     mErrorConsumer.accept(tResult.error);
                 }

@@ -27,7 +27,7 @@ Add this line to your app's build.gradle :
 SugarLoader was designed so that data loading should be written as a simple pipeline. Every builder parameter is optional.
 Here is the simplest call :
 ```java
-     new SugarLoader<MyDataObject>()
+     new SugarLoader<MyDataObject>("Load Data")
           .background(mService::loadData)
           .onSuccess(this::displayData)
           .init();
@@ -41,11 +41,11 @@ it's useless.
 ### Other available callbacks :
 If you want to obtain more callbacks, you can use as follow :
 ```java
-  new SugarLoader<MyDataObject>()
+  new SugarLoader<MyDataObject>("My Loader name")
           .beforeStart(...) // Executed before connecting or creating a loader (display a progress bar, hide a view...) 
           .beforeCreateLoader(...) // Special callback, invoked only when a loader is effectively created (e.g. log loader effective creation)
           .background(...) // Effective load. May throw exception.
-          .beforeDeliver(...) // Always called before data is delivered, however result is success or failure. Use it to hide the progress bar for example.
+          .beforeDeliver(...) // Always called before data is delivered, however result is result or failure. Use it to hide the progress bar for example.
           .onSuccess(...) // Called when no exception happened
           .onError(...) // Called when an exception happened
           .init();

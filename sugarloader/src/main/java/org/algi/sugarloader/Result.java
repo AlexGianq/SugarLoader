@@ -4,16 +4,19 @@ package org.algi.sugarloader;
  * @author Alexandre Gianquinto
  */
 class Result<TYPE> {
-    final TYPE success;
+    final TYPE result;
     final Throwable error;
+    final boolean isSuccess;
 
-    public Result(final TYPE success) {
+    Result(final TYPE result) {
         this.error = null;
-        this.success = success;
+        this.result = result;
+        this.isSuccess = true;
     }
 
-    public Result(final Throwable error) {
-        this.success = null;
+    Result(final Throwable error) {
+        this.result = null;
         this.error = error;
+        this.isSuccess = false;
     }
 }
