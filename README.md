@@ -19,7 +19,7 @@ the only framework that is aware of fragment and activity lifecycles...
 ### Gradle config
 Add this line to your app's build.gradle :
 ```
-     compile 'com.github.alexgianq:sugarloader:0.1'
+     compile 'com.github.alexgianq:sugarloader:0.2'
 ```
 
 
