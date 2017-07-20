@@ -282,10 +282,14 @@ public class SugarLoader<T> {
             @Override
             public void onLoadFinished(final android.support.v4.content.Loader<Result<T>> loader, final Result<T> tResult) {
                 mBeforeDeliver.apply();
-                if (tResult.isSuccess) {
-                    mSuccessConsumer.accept(tResult.result);
-                } else {
-                    mErrorConsumer.accept(tResult.error);
+                try {
+                    if (tResult.isSuccess) {
+                        mSuccessConsumer.accept(tResult.result);
+                    } else {
+                        mErrorConsumer.accept(tResult.error);
+                    }
+                } catch (ClassCastException e) {
+                    throw new IllegalStateException("Unexpected result delivered to this loader : did you forget to name it properly or does it have the same name as another loader inside the same instance ?", e);
                 }
             }
 
@@ -307,10 +311,14 @@ public class SugarLoader<T> {
             @Override
             public void onLoadFinished(final Loader<Result<T>> loader, final Result<T> tResult) {
                 mBeforeDeliver.apply();
-                if (tResult.isSuccess) {
-                    mSuccessConsumer.accept(tResult.result);
-                } else {
-                    mErrorConsumer.accept(tResult.error);
+                try {
+                    if (tResult.isSuccess) {
+                        mSuccessConsumer.accept(tResult.result);
+                    } else {
+                        mErrorConsumer.accept(tResult.error);
+                    }
+                } catch (ClassCastException e) {
+                    throw new IllegalStateException("Unexpected result delivered to this loader : did you forget to name it properly or does it have the same name as another loader inside the same instance ?", e);
                 }
             }
 
